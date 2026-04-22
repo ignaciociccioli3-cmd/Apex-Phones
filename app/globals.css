@@ -1,26 +1,207 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  /* Colors - Surface */
+  --color-surface-0: #080808;
+  --color-surface-1: #0f0f0f;
+  --color-surface-2: #161616;
+  --color-surface-3: #1e1e1e;
+  --color-surface-4: #252525;
+  --color-surface-5: #2e2e2e;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Colors - Electric Blue */
+  --color-accent-blue: #2563eb;
+  --color-accent-blue-light: #60a5fa;
+  --color-accent-blue-dim: rgba(37, 99, 235, 0.15);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Colors - Cyan */
+  --color-accent-cyan: #06b6d4;
+  --color-accent-cyan-light: #22d3ee;
+  --color-accent-cyan-dim: rgba(6, 182, 212, 0.15);
+
+  /* Colors - Violet */
+  --color-accent-violet: #7c3aed;
+  --color-accent-violet-light: #a78bfa;
+  --color-accent-violet-dim: rgba(124, 58, 237, 0.15);
+
+  /* Colors - Ink (text) */
+  --color-ink-1: #f8f8f8;
+  --color-ink-2: #d4d4d4;
+  --color-ink-3: #a1a1aa;
+  --color-ink-4: #71717a;
+  --color-ink-5: #52525b;
+
+  /* Colors - Edge (borders) */
+  --color-edge-1: rgba(255, 255, 255, 0.06);
+  --color-edge-2: rgba(255, 255, 255, 0.10);
+  --color-edge-3: rgba(255, 255, 255, 0.18);
+
+  /* Border radius */
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-4xl: 2rem;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.3);
+  --shadow-card-hover: 0 4px 16px rgba(0,0,0,0.6), 0 24px 64px rgba(0,0,0,0.5);
+  --shadow-float: 0 20px 60px rgba(0,0,0,0.6), 0 4px 16px rgba(0,0,0,0.4);
+  --shadow-glow-blue: 0 0 40px rgba(37,99,235,0.2);
+  --shadow-glow-cyan: 0 0 40px rgba(6,182,212,0.2);
+
+  /* Animations */
+  --animate-fade-in: fadeIn 0.4s ease-out;
+  --animate-fade-up: fadeUp 0.5s ease-out;
+  --animate-slide-right: slideInRight 0.35s ease-out;
+  --animate-float: floatY 3s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.4s linear infinite;
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideInRight {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes floatY {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Base reset */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
 }
+
+body {
+  background-color: #080808;
+  color: #f8f8f8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #0f0f0f; }
+::-webkit-scrollbar-thumb { background: #2e2e2e; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3f3f3f; }
+
+/* Selection */
+::selection { background: rgba(37,99,235,0.28); color: #f8f8f8; }
+
+/* Focus */
+:focus-visible {
+  outline: 2px solid rgba(37,99,235,0.7);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ─── Utility classes ─────────────────────────────────────── */
+
+.glass {
+  background: rgba(22, 22, 22, 0.55);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.07);
+}
+
+.glass-nav {
+  background: rgba(8, 8, 8, 0.80);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.gradient-text-blue {
+  background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-cyan {
+  background: linear-gradient(135deg, #22d3ee 0%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-multi {
+  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-white {
+  background: linear-gradient(160deg, #ffffff 0%, #a1a1aa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-glow {
+  background: radial-gradient(ellipse 80% 60% at 50% -5%, rgba(37,99,235,0.22), transparent 70%);
+}
+
+.hero-glow-product {
+  background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(37,99,235,0.14), rgba(124,58,237,0.08), transparent);
+}
+
+.card-surface {
+  background: linear-gradient(145deg, rgba(30,30,30,0.8), rgba(20,20,20,0.9));
+  border: 1px solid rgba(255,255,255,0.07);
+  box-shadow: var(--shadow-card);
+}
+
+.card-surface:hover {
+  border-color: rgba(255,255,255,0.13);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.input-premium {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 0.75rem;
+  color: #f8f8f8;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  padding: 0.625rem 1rem;
+}
+.input-premium:focus {
+  outline: none;
+  border-color: rgba(37,99,235,0.55);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+}
+.input-premium::placeholder { color: #52525b; }
+
+.shimmer-line {
+  background: linear-gradient(
+    105deg,
+    rgba(255,255,255,0) 33%,
+    rgba(255,255,255,0.05) 50%,
+    rgba(255,255,255,0) 67%
+  );
+  background-size: 300% 100%;
+  animation: shimmer 2.4s linear infinite;
+}
+
+.section-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06) 20%, rgba(255,255,255,0.06) 80%, transparent);
+}
+
+/* ─── Prose fixes ─────────────────────────────────────────── */
+p { line-height: 1.65; }
